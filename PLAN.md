@@ -2,7 +2,7 @@
 
 A two-sided mobile marketplace for Algeria (launching in **Boumerdès**). Clients find and hire craftsmen, and craftsmen find work. Clients pay craftsmen in cash, outside the app. Craftsman subscriptions and ads come later.
 
-**Stack:** Expo (React Native) mobile app · Next.js on Vercel (API, webhooks, admin panel) · Clerk (Google, Facebook, Apple, phone) · Neon Postgres + Drizzle · Inngest · ImageKit · Sentry · EAS builds · pnpm monorepo
+**Stack:** Expo (React Native) mobile app · Next.js on Vercel (API, webhooks, admin panel) · Clerk (Google, Apple, email/phone + password) · Neon Postgres + Drizzle · Inngest · ImageKit · Sentry · EAS builds · pnpm monorepo
 **Languages:** Arabic (default, right-to-left), French, English
 **v1 goal:** a closed beta in Boumerdès, through TestFlight and Play internal testing
 
@@ -11,15 +11,18 @@ Legend: `- [ ]` to do · `- [x]` done
 ---
 
 ## Phase 0: Setup and accounts
-- [ ] Confirm current versions and docs: Expo SDK, Clerk (Expo + Next.js), Drizzle, Neon driver, Inngest, ImageKit, Sentry
+- [x] Confirm current versions and docs: Expo SDK 58, `@clerk/expo` 4, Sentry React Native 8 (Drizzle, Neon driver, Inngest and ImageKit to confirm when they are added)
 - [ ] Check that Clerk can send SMS codes to Algeria (+213): support, cost and deliverability
-- [ ] Create the pnpm monorepo: `apps/mobile`, `apps/api`, `packages/shared` (types, validation, i18n keys)
-- [ ] Set up TypeScript, ESLint, Prettier and shared tsconfig
-- [ ] Create the Clerk app and enable Google, Facebook, Apple and phone sign-in
-- [ ] Create the Neon project with dev, preview and prod branches
-- [ ] Create the Inngest, ImageKit and Sentry projects (mobile and API)
+- [ ] Create the pnpm monorepo: `apps/mobile`, `apps/api`, `packages/shared` (types, validation, i18n keys). The mobile app currently lives on its own in `craftlink/`
+- [x] Set up TypeScript and ESLint for the mobile app (Prettier and a shared tsconfig still to do with the monorepo)
+- [x] Create the Clerk app and enable Google and Apple sign-in, plus email/phone with password
+- [ ] Facebook sign-in and phone sign-in with an SMS code: deferred, the current auth screen is final for now
+- [x] Create the Neon project (`DATABASE_URL` set)
+- [ ] Create Neon preview and prod branches
+- [x] Create the Inngest, ImageKit and Sentry projects; all keys are in `.env`
 - [ ] Create the Vercel project for `apps/api` and the EAS project for `apps/mobile` (dev, preview and production profiles)
-- [ ] Add `.env.example` files (no secrets committed) and a README with local setup steps
+- [x] Add `.env.example` (no secrets committed)
+- [ ] README with local setup steps
 
 ## Phase 1: Database and API foundation
 - [ ] Drizzle schema: `users`, `craftsman_profiles`, `crafts`, `craftsman_crafts` (with `custom_craft_name` for "Other"), `wilayas`, `communes`, `craftsman_service_communes`, `working_hours`, `media`
@@ -29,17 +32,18 @@ Legend: `- [ ]` to do · `- [x]` done
 - [ ] Seed data: Boumerdès wilaya and its communes, around 12 crafts with AR/FR/EN names and icons
 - [ ] API middleware that checks the Clerk login token and loads the current user
 - [ ] Shared validation schemas (zod) and a standard error format
-- [ ] Clerk webhook: sync user created, updated and deleted events
-- [ ] Inngest endpoint wired up in Next.js
+- [ ] Clerk webhook: sync user created, updated and deleted events (via Inngest, in progress)
+- [ ] Inngest endpoint wired up in Next.js (in progress, with user sync)
 - [ ] Sentry in the API
 
 ## Phase 2: Mobile app shell
-- [ ] Expo Router layout: auth stack, onboarding stack, main tabs
-- [ ] Translations (AR/FR/EN) with Arabic as the default, right-to-left layout, and a language switcher
-- [ ] Design tokens and base components that work in right-to-left
-- [ ] Clerk sign-in screens: Google, Facebook, Apple, phone with SMS code
+- [x] Expo Router layout: `(auth)` stack and `(tabs)` with protected routes and an SSO callback route
+- [ ] Onboarding stack
+- [ ] Translations (AR/FR/EN) with Arabic as the default, right-to-left layout, and a language switcher (auth screens are in Arabic only for now)
+- [x] Design tokens and base auth components (NativeWind, colors, Tajawal font)
+- [x] Clerk auth screens: one auth screen with sign-in, sign-up, forgot password, 2FA code step, and Google + Apple buttons
 - [ ] API client that sends the Clerk token, plus a data cache (React Query)
-- [ ] Sentry in the mobile app
+- [x] Sentry in the mobile app (tagged with Clerk user ID only)
 - [ ] Register for Expo push notifications and save the token (`push_tokens`)
 
 ## Phase 3: Onboarding
