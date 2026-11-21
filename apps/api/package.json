@@ -1,0 +1,38 @@
+{
+  "name": "craft-api",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --port 3000",
+    "build": "next build",
+    "start": "next start",
+    "inngest:dev": "inngest-cli dev -u http://localhost:3000/api/inngest --no-discovery",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:push": "drizzle-kit push",
+    "db:studio": "drizzle-kit studio",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "@types/react": "^19.3.0",
+    "drizzle-kit": "^0.31.11",
+    "inngest-cli": "^1.53.0",
+    "typescript": "~6.0.3"
+  },
+  "dependencies": {
+    "@clerk/nextjs": "^7.10.6",
+    "@neondatabase/serverless": "^1.2.1",
+    "drizzle-orm": "^0.45.4",
+    "inngest": "^4.26.2",
+    "next": "^16.4.6",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
+  },
+  "allowScripts": {
+    "esbuild@0.18.20": true,
+    "esbuild@0.25.12": true,
+    "esbuild@0.28.2": true,
+    "inngest-cli@1.53.0": true
+  }
+}

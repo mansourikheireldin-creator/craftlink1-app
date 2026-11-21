@@ -32,8 +32,8 @@ Legend: `- [ ]` to do · `- [x]` done
 - [ ] Seed data: Boumerdès wilaya and its communes, around 12 crafts with AR/FR/EN names and icons
 - [ ] API middleware that checks the Clerk login token and loads the current user
 - [ ] Shared validation schemas (zod) and a standard error format
-- [ ] Clerk webhook: sync user created, updated and deleted events (via Inngest, in progress)
-- [ ] Inngest endpoint wired up in Next.js (in progress, with user sync)
+- [x] Clerk webhook: sync user created, updated and deleted events (via Inngest; updated is an upsert, deleted removes the `users` row)
+- [x] Inngest endpoint wired up in Next.js (`/api/inngest`, serving the three user sync functions)
 - [ ] Sentry in the API
 
 ## Phase 2: Mobile app shell
